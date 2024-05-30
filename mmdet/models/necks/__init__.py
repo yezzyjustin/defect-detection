@@ -1,27 +1,34 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from .bfp import BFP
 from .channel_mapper import ChannelMapper
-from .cspnext_pafpn import CSPNeXtPAFPN
 from .ct_resnet_neck import CTResNetNeck
 from .dilated_encoder import DilatedEncoder
 from .dyhead import DyHead
 from .fpg import FPG
 from .fpn import FPN
 from .fpn_carafe import FPN_CARAFE
-from .fpn_dropblock import FPN_DropBlock
 from .hrfpn import HRFPN
 from .nas_fpn import NASFPN
 from .nasfcos_fpn import NASFCOS_FPN
 from .pafpn import PAFPN
 from .rfp import RFP
 from .ssd_neck import SSDNeck
-from .ssh import SSH
 from .yolo_neck import YOLOV3Neck
 from .yolox_pafpn import YOLOXPAFPN
+
+from .bifpn import BIFPN
+from .SSFPN import SSFPN
+from .HighFPN import HighFPNRetinanet
+from .DyFPN import DyFPN_B_CNNGate
+from .DSFP import DSFP
+from .siamsefpn import SiameseFPN
+from .dcnfpn import FPNDcnGroup
+
 
 __all__ = [
     'FPN', 'BFP', 'ChannelMapper', 'HRFPN', 'NASFPN', 'FPN_CARAFE', 'PAFPN',
     'NASFCOS_FPN', 'RFP', 'YOLOV3Neck', 'FPG', 'DilatedEncoder',
-    'CTResNetNeck', 'SSDNeck', 'YOLOXPAFPN', 'DyHead', 'CSPNeXtPAFPN', 'SSH',
-    'FPN_DropBlock'
+    'CTResNetNeck', 'SSDNeck', 'YOLOXPAFPN', 'DyHead', 'BIFPN', 'SSFPN' ,
+    'HighFPNRetinanet', 'DyFPN_B_CNNGate', 'DSFP', 'SiameseFPN',
+    'FPNDcnGroup'
 ]
