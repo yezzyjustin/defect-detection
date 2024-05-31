@@ -255,7 +255,7 @@ class GSConv(nn.Module):
 
 
 @NECKS.register_module
-class HighFPNRetinanet(nn.Module):
+class 3D(nn.Module):
 
     def __init__(self,
                  in_channels,
@@ -271,7 +271,7 @@ class HighFPNRetinanet(nn.Module):
                  norm_cfg=None,
                  act_cfg=None,
                  upsample_cfg=dict(mode='nearest')):
-        super(HighFPNRetinanet, self).__init__()
+        super(3D, self).__init__()
         assert isinstance(in_channels, list)
         self.in_channels = in_channels
         self.out_channels = out_channels

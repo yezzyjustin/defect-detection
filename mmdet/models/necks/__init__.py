@@ -18,7 +18,7 @@ from .yolox_pafpn import YOLOXPAFPN
 
 from .bifpn import BIFPN
 from .SSFPN import SSFPN
-from .HighFPN import HighFPNRetinanet
+from .HighFPN import 3D
 from .DyFPN import DyFPN_B_CNNGate
 from .DSFP import DSFP
 from .siamsefpn import SiameseFPN
@@ -29,6 +29,6 @@ __all__ = [
     'FPN', 'BFP', 'ChannelMapper', 'HRFPN', 'NASFPN', 'FPN_CARAFE', 'PAFPN',
     'NASFCOS_FPN', 'RFP', 'YOLOV3Neck', 'FPG', 'DilatedEncoder',
     'CTResNetNeck', 'SSDNeck', 'YOLOXPAFPN', 'DyHead', 'BIFPN', 'SSFPN' ,
-    'HighFPNRetinanet', 'DyFPN_B_CNNGate', 'DSFP', 'SiameseFPN',
+    '3D', 'DyFPN_B_CNNGate', 'DSFP', 'SiameseFPN',
     'FPNDcnGroup'
 ]
