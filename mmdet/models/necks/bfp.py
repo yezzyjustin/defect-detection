@@ -359,6 +359,35 @@ class HRAB(nn.Module):
 
 ###################################################################################
 
+
+
+class 1*1_layer(nn.Module):
+ 
+
+    def __init__(self, channel, gamma=2, b=1):
+        super(1*1_layer, self).__init__()
+
+        t = int(abs((np.log2(channel) + b) / gamma))
+        k_size = t if t % 2 else t + 1
+
+        self.avg_pool = nn.AdaptiveAvgPool2D(1)
+        self.conv = nn.Conv1D(1, 1, kernel_size=k_size, padding=(k_size - 1) // 2, bias_attr=False)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):  
+        y = self.avg_pool(x)  
+
+        y = y.squeeze(-1)  
+        y = paddle.transpose(y, [0, 2, 1])  
+        y = self.conv(y)  # shape=1,1,16
+        y = paddle.transpose(y, [0, 2, 1])  
+        y = y.unsqueeze(-1) 
+
+        y = self.sigmoid(y)
+
+        return x * y.expand_as(x)
+
+####################################################################################
 class BasicConv(nn.Module):
 
     def __init__(self, in_planes, out_planes, kernel_size, stride=1, padding=0, dilation=1, groups=1, relu=True, bn=True):
