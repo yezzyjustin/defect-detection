@@ -18,6 +18,44 @@ from .anchor_head import AnchorHead
 
 EPS = 1e-12
 
+class iteration(nn.Module):
+    def __init__(self, dim, order=3, gflayer=None, s=1.0):
+        super().__init__()
+        self.order = order
+        self.dims = [dim // 2 ** i for i in range(order)]
+        self.dims.reverse()
+        self.proj_in = nn.Conv2d(dim, 2 * dim, 1)
+ 
+        if gflayer is None:
+            self.dwconv = get_dwconv(sum(self.dims), 7, True)
+        else:
+            self.dwconv = gflayer(sum(self.dims), h=h, w=w)
+        self.proj_out = nn.Conv2d(dim, dim, 1)
+        self.pws = nn.ModuleList(
+            [nn.Conv2d(self.dims[i], self.dims[i + 1], 1) for i in range(order - 1)]
+        )
+        self.scale = s
+      
+ 
+    def forward(self, x):
+        fused_x = self.proj_in(x)
+        pwa, abc = torch.split(fused_x, (self.dims[0], sum(self.dims)), dim=1)
+        dw_abc = self.dwconv(abc) * self.scale
+        dw_list = torch.split(dw_abc, self.dims, dim=1)
+        x = pwa * dw_list[0]
+        for i in range(self.order - 1):
+            x = self.pws[i](x) * dw_list[i + 1]
+        x = self.proj_out(x)
+        return x
+
+class softpooling(nn.Module):
+	def __init__(self):
+		super(softpooling,self).__init__()
+	def forward(self,x):
+		xflat = x.view(x.size(0),x.size(1),-1)
+		softmax = F.softmax(xflat,dim=X)
+		y=torch.sum(xflat * softmax,dim=X)
+		return y
 
 @MODELS.register_module()
 class DDODHead(AnchorHead):
